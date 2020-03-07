@@ -1,60 +1,81 @@
 import * as React from 'react';
-import { Text, View, SafeAreaView } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { StyleSheet } from 'react-native';
 
-function FeedScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Feed!</Text>
-    </View>
-  );
-}
+// Components
+import Home from './Home';
+import Events from './Events';
+import Accomodations from './Accomodations';
+import Travel from './Travel';
+import Dining from './Dining';
+import Registry from './Registry';
 
-function NotificationsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Notifications!</Text>
-    </View>
-  );
-}
-
-function ProfileScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Profile!</Text>
-    </View>
-  );
-}
+const routes = [
+  {
+  name: 'Home',
+  component: Home,
+  icon: 'ios-home'
+  },
+  {
+  name: 'Events',
+  component: Events,
+  icon: 'ios-calendar'
+  },
+  {
+  name: 'Accomodations',
+  component: Accomodations,
+  icon: 'ios-bed'
+  },
+  {
+  name: 'Travel',
+  component: Travel,
+  icon: 'ios-airplane'
+  },
+  {
+  name: 'Dining',
+  component: Dining,
+  icon: 'ios-restaurant'
+  },
+  {
+  name: 'Registry',
+  component: Registry,
+  icon: "ios-gift"
+  },
+]
 
 const Tab = createMaterialTopTabNavigator();
+
+const styles = StyleSheet.create({
+  icon: {
+    color: '#56784a',
+  },
+});
 
 export default function AppRouter() {
   return (
     <Tab.Navigator
       initialRouteName="Feed"
-      // tabBar={props => <MyTabBar {...props} />}
+      showIcon
       tabBarOptions={{
-        activeTintColor: '#e91e63',
-        labelStyle: { fontSize: 12 },
-        // style: { backgroundColor: 'powderblue' },
+        showIcon: true,
+        showLabel: false
       }}
+      style={styles.navigator}
     >
-      <Tab.Screen
-        name="Feed"
-        component={FeedScreen}
-        options={{ tabBarLabel: 'Home' }}
-      />
-      <Tab.Screen
-        name="Notifications"
-        component={NotificationsScreen}
-        options={{ tabBarLabel: 'Updates' }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{ tabBarLabel: 'Profile' }}
-      />
+    {routes.map((route, idx) => {
+      const { name, component, icon } = route;
+      return(
+        <Tab.Screen
+          key={name + String(idx)}
+          name={name}
+          options={{
+            tabBarIcon: () => <Icon name={icon} size={24} color={styles.icon.color} />
+          }}
+          component={component}
+         />
+      )
+    })}
     </Tab.Navigator>
   );
 }
