@@ -1,13 +1,60 @@
-import React, { Component } from 'react';
+import * as React from 'react';
+import { Text, View, SafeAreaView } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-// Components
-import { Text} from 'react-native'
-
-
-class AppRouter extends Component {
-  render() {
-    return <Text>Test</Text>
-  }
+function FeedScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Feed!</Text>
+    </View>
+  );
 }
 
-export default AppRouter;
+function NotificationsScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Notifications!</Text>
+    </View>
+  );
+}
+
+function ProfileScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Profile!</Text>
+    </View>
+  );
+}
+
+const Tab = createMaterialTopTabNavigator();
+
+export default function AppRouter() {
+  return (
+    <Tab.Navigator
+      initialRouteName="Feed"
+      // tabBar={props => <MyTabBar {...props} />}
+      tabBarOptions={{
+        activeTintColor: '#e91e63',
+        labelStyle: { fontSize: 12 },
+        // style: { backgroundColor: 'powderblue' },
+      }}
+    >
+      <Tab.Screen
+        name="Feed"
+        component={FeedScreen}
+        options={{ tabBarLabel: 'Home' }}
+      />
+      <Tab.Screen
+        name="Notifications"
+        component={NotificationsScreen}
+        options={{ tabBarLabel: 'Updates' }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{ tabBarLabel: 'Profile' }}
+      />
+    </Tab.Navigator>
+  );
+}
