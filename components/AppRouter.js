@@ -11,6 +11,9 @@ import Travel from './Travel';
 import Dining from './Dining';
 import Registry from './Registry';
 
+// Styles
+import styleConstants from '../StyleConstants';
+
 const routes = [
   {
   name: 'Home',
@@ -48,8 +51,11 @@ const Tab = createMaterialTopTabNavigator();
 
 const styles = StyleSheet.create({
   icon: {
-    color: '#56784a',
+    color: styleConstants.green,
   },
+  indicator: {
+    backgroundColor: styleConstants.green,
+  }
 });
 
 export default function AppRouter() {
@@ -59,9 +65,9 @@ export default function AppRouter() {
       showIcon
       tabBarOptions={{
         showIcon: true,
-        showLabel: false
+        showLabel: false,
+        indicatorStyle: styles.indicator
       }}
-      style={styles.navigator}
     >
     {routes.map((route, idx) => {
       const { name, component, icon } = route;
@@ -70,7 +76,7 @@ export default function AppRouter() {
           key={name + String(idx)}
           name={name}
           options={{
-            tabBarIcon: () => <Icon name={icon} size={24} color={styles.icon.color} />
+            tabBarIcon: () => <Icon name={icon} size={26} color={styles.icon.color} />
           }}
           component={component}
          />
